@@ -1,5 +1,5 @@
 ﻿using Data.Models;
-using Interface.Service_Interfaces;
+using Interface.ServiceInterfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

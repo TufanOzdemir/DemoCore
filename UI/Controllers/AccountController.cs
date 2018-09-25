@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Data.Models;
-using Interface.Service_Interfaces;
+﻿using Data.Models;
+using Interface.ServiceInterfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using UI.Models;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using UI.Models.AccountViewModels;
 using UI.Services;
 

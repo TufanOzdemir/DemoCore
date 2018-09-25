@@ -1,4 +1,4 @@
-﻿using Interface.Service_Interfaces;
+﻿using Interface.ServiceInterfaces;
 using System.Threading.Tasks;
 
 namespace Services.IdentityServices
