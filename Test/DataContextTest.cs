@@ -20,7 +20,7 @@ namespace Test
         [TestMethod]
         public void CategoryTest()
         {
-            DataContext dataContext = new DataContext(new Microsoft.EntityFrameworkCore.DbContextOptions<DataContext>());
+            DataContext dataContext = new DataContext(new DbContextOptions<DataContext>());
             var k = dataContext.Category.Include(i=>i.Product).Include(i => i.Parent).Include(i=>i.InverseParent).First();
             CategoryDO categoryDO = Mapper.Map<Category, CategoryDO>(k);
         }
