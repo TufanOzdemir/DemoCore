@@ -3,19 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{AE009730-D69D-41B2-8B52-1C1944CBCBBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{AE009730-D69D-41B2-8B52-1C1944CBCBBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{96D2666C-8872-40C3-842C-CD9E4F648A7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{96D2666C-8872-40C3-842C-CD9E4F648A7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Interface.csproj", "{71B17BD6-F0C5-4741-8A19-25918D35B7E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interface", "Interface\Interface.csproj", "{71B17BD6-F0C5-4741-8A19-25918D35B7E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{2443D056-1CA7-45F4-AB80-7C3E0682D57F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{2443D056-1CA7-45F4-AB80-7C3E0682D57F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{D43A93C7-748A-4583-B1BC-DCCF35344721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{D43A93C7-748A-4583-B1BC-DCCF35344721}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{70AB1CEE-D800-4327-9934-C5EF40E97822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{70AB1CEE-D800-4327-9934-C5EF40E97822}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions\Extensions.csproj", "{300ED23F-DC89-47CD-8B0A-61EA84E3B1E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Extensions\Extensions.csproj", "{300ED23F-DC89-47CD-8B0A-61EA84E3B1E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccessLayer", "DataAccessLayer", "{92017786-BDC3-4779-82F4-FF06A4BA88C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityData", "IdentityData\IdentityData.csproj", "{FA69D2D6-C84E-4F88-AFAC-251C10715391}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,9 +55,17 @@ Global
 		{300ED23F-DC89-47CD-8B0A-61EA84E3B1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{300ED23F-DC89-47CD-8B0A-61EA84E3B1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{300ED23F-DC89-47CD-8B0A-61EA84E3B1E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA69D2D6-C84E-4F88-AFAC-251C10715391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA69D2D6-C84E-4F88-AFAC-251C10715391}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA69D2D6-C84E-4F88-AFAC-251C10715391}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA69D2D6-C84E-4F88-AFAC-251C10715391}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AE009730-D69D-41B2-8B52-1C1944CBCBBB} = {92017786-BDC3-4779-82F4-FF06A4BA88C9}
+		{FA69D2D6-C84E-4F88-AFAC-251C10715391} = {92017786-BDC3-4779-82F4-FF06A4BA88C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {225531EA-9433-4BFA-A86C-0BA42B8F9673}

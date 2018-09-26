@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Data.Models
 {
-    public partial class DataContext : IdentityDbContext<ApplicationUser>
+    public partial class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)

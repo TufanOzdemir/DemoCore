@@ -1,4 +1,7 @@
-﻿using Data.Models;
+﻿using AutoMapper;
+using Data.Models;
+using IdentityData.Identity;
+using Interface.Initializer;
 using Interface.ServiceInterfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Service.IdentityServices;
 using Services.IdentityServices;
 
 namespace UI
@@ -25,12 +29,19 @@ namespace UI
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<DataContext>()
+            services.AddDbContext<IdentityDataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<IdentityData.Identity.ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDataContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+
+            MapperInitializer.MapperConfiguration();
 
             services.AddMvc();
         }
