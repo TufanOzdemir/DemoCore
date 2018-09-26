@@ -14,32 +14,16 @@
         }
 
         public Result(T Data)
-            : this(true, ResultTypeEnum.None, string.Empty, Data, false, string.Empty, string.Empty)
-        {
-        }
-        public Result(T Data, int DataCount)
-           : this(true, ResultTypeEnum.None, string.Empty, Data, false, string.Empty, string.Empty, DataCount)
-        {
-        }
-        public Result(ResultTypeEnum ResultTypeEnum, T Data, string Message, string SummaryMessage)
-          : this(true, ResultTypeEnum, string.Empty, Data, false, Message, SummaryMessage)
-        {
-        }
-        public Result(ResultTypeEnum ResultTypeEnum, T Data, string Message, string SummaryMessage, int DataCount)
-          : this(true, ResultTypeEnum, string.Empty, Data, false, Message, SummaryMessage, DataCount)
+            : this(true, ResultTypeEnum.None, string.Empty, Data)
         {
         }
 
-        public Result(bool IsSuccess, string Message, string SummaryMessage)
-          : this(IsSuccess, ResultTypeEnum.None, string.Empty, default(T), false, Message, SummaryMessage)
-        {
-        }
-        public Result(bool IsSuccess, ResultTypeEnum ResultType, string Message, string SummaryMessage)
-            : this(IsSuccess, ResultType, string.Empty, default(T), false, Message, SummaryMessage)
+        public Result(bool IsSuccess, ResultTypeEnum ResultType, string Message)
+            : this(IsSuccess, ResultType, Message, default(T))
         {
         }
 
-        public Result(bool IsSuccess, ResultTypeEnum ResultType, string Html, T Data, bool IsLastPackage, string Message, string SummaryMessage, int DataCount = 0)
+        public Result(bool IsSuccess, ResultTypeEnum ResultType, string Message, T Data)
         {
             this.IsSuccess = IsSuccess;
             this.ResultType = ResultType;
