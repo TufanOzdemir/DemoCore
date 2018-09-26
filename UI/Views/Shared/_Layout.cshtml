@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - UI</title>
+    <title>@ViewData["Title"] - Demo</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -32,7 +32,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></li>
                     <li><a asp-area="" asp-controller="Category" asp-action="Index">Kategoriler</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Product" asp-action="Index">Ürünler</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -42,7 +42,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - UI</p>
+            <p>&copy; 2018 - Tufan Özdemir Demo</p>
         </footer>
     </div>
 

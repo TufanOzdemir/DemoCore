@@ -1,0 +1,59 @@
+﻿@model UI.ViewModels.ProductCreateViewModel
+@{
+    ViewData["Title"] = "Ürün Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ürün Ekle</h2>
+
+<form class="form-horizontal form-bordered " enctype="multipart/form-data" action="Create" method="post">
+    <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-3">Ürün Adı</label>
+            <div class="col-md-6">
+                <input class="form-control" type="text" asp-for="@Model.ProductDO.Title" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Ürün Açıklaması</label>
+            <div class="col-md-6">
+                <textarea class="form-control" type="text" asp-for="@Model.ProductDO.Description"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Ürün Fiyatı</label>
+            <div class="col-md-6">
+                <input class="form-control" type="text" asp-for="@Model.ProductDO.Price" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Ürün Fotoğrafı</label>
+            <div class="col-md-6">
+                <input class="form-control" type="file" name="pic" />
+            </div>
+        </div>
+        <div id="subCategorySelector" class="form-group">
+            <label class="control-label col-md-3">Kategori</label>
+            <div class="col-md-6">
+                <select asp-for="@Model.ProductDO.CategoryId" class="btn btn-default form-control" data-label="left" data-width="100%">
+                    @foreach (var item in Model.CategoryList)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-actions">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input type="submit" class="btn green" value="Ekle">
+                            <a asp-controller="Product" asp-action="Index" class="btn red">Geri Dön</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -23,7 +23,7 @@ namespace Service.IdentityServices
             Result<List<ProductDO>> result;
             try
             {
-                List<Product> product = _dataContext.Product.AsNoTracking().ToList();
+                List<Product> product = _dataContext.Product.Include(i=>i.Category).AsNoTracking().ToList();
                     
                 List<ProductDO> productDO = Mapper.Map<List<Product>, List<ProductDO>>(product);
                 result = new Result<List<ProductDO>>(productDO);

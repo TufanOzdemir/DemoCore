@@ -1,0 +1,33 @@
+﻿@model List<Domain.Models.ProductDO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ürünler</h2>
+<a href="@Url.Action("Create","Product")">Yeni Ürün Ekle</a>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Ürün Fotoğrafı</th>
+            <th scope="col">Ürün Adı</th>
+            <th scope="col">Ürün Açıklaması</th>
+            <th scope="col">Ürün Kategorisi</th>
+            <th scope="col">Ürün Fiyatı</th>
+            <th scope="col">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row"><img class="img-responsive img-thumbnail" width="300" height="100" src="~/Content/Product/@item.ImageUrl" /></th>
+                <td>@item.Title</td>
+                <td>@item.Description</td>
+                <td>@item.Category.Name</td>
+                <td>@item.Price</td>
+                <td><a href="@Url.Action("Details","Product",new { id = item.Id })">Detay</a> / <a href="@Url.Action("Edit","Product",new { id = item.Id })">Güncelle</a> / <a href="@Url.Action("Delete","Product",new { id = item.Id })">Sil</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
