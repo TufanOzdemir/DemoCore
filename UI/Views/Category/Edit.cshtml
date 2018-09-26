@@ -1,13 +1,14 @@
 ﻿@model UI.ViewModels.CategoryCreateViewModel
 @{
-    ViewData["Title"] = "Kategori Ekle";
+    ViewData["Title"] = "Kategori Güncelle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Kategori Ekle</h2>
+<h2>Kategori Güncelle</h2>
 
-<form id="form-category" class="form-horizontal form-bordered " action="Create" method="post">
+<form id="form-category" class="form-horizontal form-bordered " action="Edit" method="post">
     <div class="form-body">
+        <input type="hidden" asp-for="@Model.CategoryDO.Id" />
         <div class="form-group">
             <label class="control-label col-md-3">Kategori Adı</label>
             <div class="col-md-6">
@@ -37,7 +38,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-offset-3 col-md-9">
-                        <input type="submit" class="btn green" value="Ekle">
+                        <input type="submit" class="btn green" value="Güncelle">
                         <a asp-controller="Category" asp-action="Index" class="btn red">Geri Dön</a>
                     </div>
                 </div>

@@ -40,8 +40,39 @@ namespace UI.Controllers
         [HttpPost]
         public IActionResult Create(CategoryCreateViewModel model)
         {
+            model.CategoryDO.ParentId = model.IsSubCategory ? model.CategoryDO.ParentId : null;
             _categoryService.Create(model.CategoryDO);
-            return Redirect("Index");
+            return RedirectToAction("Index", "Category");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            CategoryCreateViewModel categoryCreateViewModel = new CategoryCreateViewModel();
+            Result<CategoryDO> category = _categoryService.GetByID(id);
+            if (category.IsSuccess)
+            {
+                Result<List<CategoryDO>> categoryList = _categoryService.GetAll();
+                categoryCreateViewModel.CategoryDO = category.Data;
+                categoryCreateViewModel.CategoryList = categoryList.Data ?? new List<CategoryDO>();
+                return View(categoryCreateViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Category");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(CategoryCreateViewModel model)
+        {
+            _categoryService.Edit(model.CategoryDO);
+            return RedirectToAction("Index", "Category");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _categoryService.Delete(id);
+            return RedirectToAction("Index", "Category");
         }
     }
 }

@@ -15,5 +15,6 @@ namespace UI.ViewModels
 
         public CategoryDO CategoryDO { get; set; }
         public List<CategoryDO> CategoryList { get; set; }
+        public bool IsSubCategory { get; set; }
     }
 }
