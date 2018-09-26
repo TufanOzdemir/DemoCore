@@ -52,7 +52,7 @@ namespace UI.Controllers
         public async Task<IActionResult> Create(ProductCreateViewModel model, IFormFile pic)
         {
             ImageHelper imageHelper = new ImageHelper(_hostingEnvironment);
-            model.ProductDO.ImageUrl = await imageHelper.ImageUploaderAsync(pic);
+            model.ProductDO.ImageUrl = await imageHelper.ImageUploader(pic, "Content\\Product");
             _productService.Create(model.ProductDO);
             return RedirectToAction("Index", "Product");
         }
@@ -71,7 +71,7 @@ namespace UI.Controllers
         public async Task<IActionResult> Edit(ProductCreateViewModel model, IFormFile pic)
         {
             ImageHelper imageHelper = new ImageHelper(_hostingEnvironment);
-            model.ProductDO.ImageUrl = await imageHelper.ImageUploaderAsync(pic);
+            model.ProductDO.ImageUrl = await imageHelper.ImageUploader(pic, "Content\\Product");
             _productService.Edit(model.ProductDO);
             return RedirectToAction("Index", "Product");
         }

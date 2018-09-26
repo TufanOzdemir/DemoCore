@@ -17,13 +17,13 @@ namespace UI.Helpers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public async Task<string> ImageUploaderAsync(IFormFile pic)
+        public async Task<string> ImageUploader(IFormFile pic,string path)
         {
             string result = string.Empty;
             if (pic != null && pic.Length > 0)
             {
                 var file = pic;
-                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "Content\\Product");
+                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, path);
 
                 if (file.Length > 0)
                 {
