@@ -24,7 +24,7 @@ namespace Test
         [TestMethod]
         public void GetByID()
         {
-            var k = productService.GetByID(2);
+            var k = productService.GetByID(1);
         }
 
         [TestMethod]
