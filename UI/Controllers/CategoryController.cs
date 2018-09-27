@@ -65,8 +65,8 @@ namespace UI.Controllers
         [HttpPost]
         public IActionResult Edit(CategoryCreateViewModel model)
         {
-            _categoryService.Edit(model.CategoryDO);
-            return RedirectToAction("Index", "Category");
+            Result<string> result = _categoryService.Edit(model.CategoryDO);
+            return Json(result);
         }
 
         public IActionResult Delete(int id)

@@ -6,7 +6,7 @@
 
 <h2>Kategori Güncelle</h2>
 
-<form id="form-category" class="form-horizontal form-bordered " action="Edit" method="post">
+<form id="form-category" class="form-horizontal form-bordered" method="post">
     <div class="form-body">
         <input type="hidden" asp-for="@Model.CategoryDO.Id" />
         <div class="form-group">
@@ -38,7 +38,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-offset-3 col-md-9">
-                        <input type="submit" class="btn green" value="Güncelle">
+                        <input type="button" onclick="Demo.Ingame.Category.edit()" class="btn green" value="Güncelle">
                         <a asp-controller="Category" asp-action="Index" class="btn red">Geri Dön</a>
                     </div>
                 </div>

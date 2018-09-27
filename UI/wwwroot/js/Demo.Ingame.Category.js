@@ -1,8 +1,8 @@
 ﻿/// <reference path="Demo.Ingame.js" />
 
 Demo.Ingame.Category = {
-    create:  function () {
-        //Demo.Ingame.Loader.show();
+    create: function () {
+        Demo.Ingame.Loader.show();
         var form = $("#form-category");
             $.ajax({
                 url: "/Category/Create",
@@ -13,15 +13,37 @@ Demo.Ingame.Category = {
                 success: function (result) {
                     if (result.isSuccess) {
                         Demo.Ingame.Result.show(result);
-                        setTimeout(function () { window.location.replace("/Category/Index/");}, 3000);
+                        setTimeout(function () { window.location.replace("/Category/Index/"); }, 3000);
                     }
-                    //Demo.Loader.hide();
+                    Demo.Ingame.Loader.hide();
                 },
                 error: function (xhr, status, error) {
                     alert("Bir problem oluştu!");
-                    //Demo.Loader.hide();
+                    Demo.Ingame.Loader.hide();
                 }
             });
+    },
+    edit: function () {
+        Demo.Ingame.Loader.show();
+        var form = $("#form-category");
+        $.ajax({
+            url: "/Category/Edit",
+            type: 'POST',
+            dataType: "json",
+            data: form.serialize(),
+            cache: false,
+            success: function (result) {
+                if (result.isSuccess) {
+                    Demo.Ingame.Result.show(result);
+                    setTimeout(function () { window.location.replace("/Category/Index/"); }, 3000);
+                }
+                Demo.Ingame.Loader.hide();
+            },
+            error: function (xhr, status, error) {
+                alert("Bir problem oluştu!");
+                Demo.Ingame.Loader.hide();
+            }
+        });
     },
     subCategoryActivated: function () {
         var checkBox = document.getElementById("checkSubCategory");
