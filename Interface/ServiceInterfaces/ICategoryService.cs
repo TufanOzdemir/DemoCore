@@ -11,6 +11,7 @@ namespace Interface.ServiceInterfaces
         Result<List<CategoryDO>> GetAll();
         Result<List<CategoryDO>> GetAllWithoutSubCategories();
         Result<CategoryDO> GetByID(int id);
+        Result<CategoryDO> GetByIDNaturalMode(int id);
         Result<string> Create(CategoryDO categoryDO);
         Result<string> Edit(CategoryDO categoryDO);
         Result<string> Delete(int id);

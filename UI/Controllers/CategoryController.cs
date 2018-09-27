@@ -6,6 +6,7 @@ using Domain.Models;
 using Interface.Result;
 using Interface.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Service.IdentityServices;
 using UI.Extensions;
@@ -46,7 +47,7 @@ namespace UI.Controllers
             Result<List<CategoryDO>> categoryList = _categoryService.GetAllWithoutSubCategories();
             categoryCreateViewModel.CategoryDO = new CategoryDO();
             categoryCreateViewModel.CategoryList = categoryList.Data;
-            result = categoryList.IsSuccess? new Result<CategoryCreateViewModel>(categoryCreateViewModel): new Result<CategoryCreateViewModel>(categoryList.IsSuccess, categoryList.ResultType, categoryList.Message);
+            result = categoryList.IsSuccess ? new Result<CategoryCreateViewModel>(categoryCreateViewModel) : new Result<CategoryCreateViewModel>(categoryList.IsSuccess, categoryList.ResultType, categoryList.Message);
             result.Html = await PartialView("_Create", result).ToString(ControllerContext);
             return Json(result);
         }
@@ -61,25 +62,42 @@ namespace UI.Controllers
 
         public IActionResult Edit(int id)
         {
+            return View(id);
+        }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            Result<CategoryCreateViewModel> result;
             CategoryCreateViewModel categoryCreateViewModel = new CategoryCreateViewModel();
-            Result<CategoryDO> category = _categoryService.GetByID(id);
+            Result<CategoryDO> category = _categoryService.GetByIDNaturalMode(id);
             if (category.IsSuccess)
             {
-                Result<List<CategoryDO>> categoryList = _categoryService.GetAll();
-                categoryCreateViewModel.CategoryDO = category.Data;
-                categoryCreateViewModel.CategoryList = categoryList.Data ?? new List<CategoryDO>();
-                return View(categoryCreateViewModel);
+                Result<List<CategoryDO>> categoryList = _categoryService.GetAllWithoutSubCategories();
+                if (categoryList.IsSuccess)
+                {
+                    categoryCreateViewModel.CategoryDO = category.Data;
+                    categoryCreateViewModel.CategoryList = categoryList.Data;
+                    result = new Result<CategoryCreateViewModel>(categoryCreateViewModel);
+                }
+                else
+                {
+                    result = new Result<CategoryCreateViewModel>(categoryList.IsSuccess, categoryList.ResultType, categoryList.Message);
+                }
+
             }
             else
             {
-                return RedirectToAction("Index", "Category");
+                result = new Result<CategoryCreateViewModel>(category.IsSuccess, category.ResultType, category.Message);
             }
+            result.Html = await PartialView("_Edit", result).ToString(ControllerContext);
+            return Json(result);
         }
 
         [HttpPost]
-        public IActionResult Edit(CategoryCreateViewModel model)
+        public IActionResult Edit(Result<CategoryCreateViewModel> model)
         {
-            Result<string> result = _categoryService.Edit(model.CategoryDO);
+            model.Data.CategoryDO.ParentId = model.Data.IsSubCategory ? model.Data.CategoryDO.ParentId : null;
+            Result<string> result = _categoryService.Edit(model.Data.CategoryDO);
             return Json(result);
         }
 

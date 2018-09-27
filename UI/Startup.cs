@@ -5,6 +5,7 @@ using Interface.Initializer;
 using Interface.ServiceInterfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +22,7 @@ namespace UI
         {
             Configuration = configuration;
         }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(options =>
@@ -61,7 +62,7 @@ namespace UI
             app.UseStaticFiles();
 
             app.UseAuthentication();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

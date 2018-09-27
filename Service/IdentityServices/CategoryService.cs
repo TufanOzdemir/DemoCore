@@ -81,6 +81,22 @@ namespace Service.IdentityServices
             return result;
         }
 
+        public Result<CategoryDO> GetByIDNaturalMode(int id)
+        {
+            Result<CategoryDO> result;
+            try
+            {
+                Category category = _dataContext.Category.First(i => i.Id == id);
+                CategoryDO categoryDO = Mapper.Map<Category, CategoryDO>(category);
+                result = new Result<CategoryDO>(categoryDO);
+            }
+            catch (Exception ex)
+            {
+                result = new Result<CategoryDO>(false, ResultTypeEnum.Error, ex.ToString());
+            }
+            return result;
+        }
+
         public Result<string> Create(CategoryDO categoryDO)
         {
             Result<string> result;
