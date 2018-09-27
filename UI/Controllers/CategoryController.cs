@@ -8,6 +8,7 @@ using Interface.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.IdentityServices;
+using UI.Extensions;
 using UI.ViewModels;
 
 namespace UI.Controllers
@@ -24,24 +25,37 @@ namespace UI.Controllers
 
         public IActionResult Index()
         {
-            Result<List<CategoryDO>> categoryList = _categoryService.GetAll();
-            return View(categoryList.Data);
+            return View();
         }
 
+        public async Task<IActionResult> List()
+        {
+            Result<List<CategoryDO>> result = _categoryService.GetAllWithoutSubCategories();
+            result.Html = await PartialView("_List", result).ToString(ControllerContext);
+            return Json(result);
+        }
         public IActionResult Create()
         {
+            return View();
+        }
+
+        public async Task<IActionResult> CreatePage()
+        {
+            Result<CategoryCreateViewModel> result;
             CategoryCreateViewModel categoryCreateViewModel = new CategoryCreateViewModel();
-            Result<List<CategoryDO>> categoryList = _categoryService.GetAll();
-            categoryCreateViewModel.CategoryList = categoryList.Data ?? new List<CategoryDO>();
+            Result<List<CategoryDO>> categoryList = _categoryService.GetAllWithoutSubCategories();
             categoryCreateViewModel.CategoryDO = new CategoryDO();
-            return View(categoryCreateViewModel);
+            categoryCreateViewModel.CategoryList = categoryList.Data;
+            result = categoryList.IsSuccess? new Result<CategoryCreateViewModel>(categoryCreateViewModel): new Result<CategoryCreateViewModel>(categoryList.IsSuccess, categoryList.ResultType, categoryList.Message);
+            result.Html = await PartialView("_Create", result).ToString(ControllerContext);
+            return Json(result);
         }
 
         [HttpPost]
-        public IActionResult Create(CategoryCreateViewModel model)
+        public IActionResult Create(Result<CategoryCreateViewModel> model)
         {
-            model.CategoryDO.ParentId = model.IsSubCategory ? model.CategoryDO.ParentId : null;
-            Result<string> result = _categoryService.Create(model.CategoryDO);
+            model.Data.CategoryDO.ParentId = model.Data.IsSubCategory ? model.Data.CategoryDO.ParentId : null;
+            Result<string> result = _categoryService.Create(model.Data.CategoryDO);
             return Json(result);
         }
 

@@ -1,6 +1,41 @@
 ﻿/// <reference path="Demo.Ingame.js" />
 
 Demo.Ingame.Category = {
+    list: function () {
+        Demo.Ingame.Loader.show();
+        $.ajax({
+            type: 'GET',
+            url: "/Category/List",
+            data: null,
+            cache: false,
+            success: function (result) {
+                $("#list-category").html(result.html);
+                Demo.Ingame.Result.show(result);
+                Demo.Ingame.Loader.hide();
+            },
+            error: function (xhr, status, error) {
+                alert("Bir problem oluştu!" + error);
+                Demo.Ingame.Loader.hide();
+            }
+        });
+    },
+    new: function () {
+        Demo.Ingame.Loader.show();
+        $.ajax({
+            type: 'GET',
+            url: "/Category/CreatePage",
+            data: null,
+            cache: false,
+            success: function (result) {
+                $("#create-category").html(result.html);
+                Demo.Ingame.Loader.hide();
+            },
+            error: function (xhr, status, error) {
+                alert("Bir problem oluştu!");
+                Demo.Ingame.Loader.hide();
+            }
+        });
+    },
     create: function () {
         Demo.Ingame.Loader.show();
         var form = $("#form-category");

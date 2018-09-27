@@ -9,6 +9,7 @@ namespace Interface.ServiceInterfaces
     public interface ICategoryService
     {
         Result<List<CategoryDO>> GetAll();
+        Result<List<CategoryDO>> GetAllWithoutSubCategories();
         Result<CategoryDO> GetByID(int id);
         Result<string> Create(CategoryDO categoryDO);
         Result<string> Edit(CategoryDO categoryDO);
