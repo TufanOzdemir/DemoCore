@@ -41,8 +41,8 @@ namespace UI.Controllers
         public IActionResult Create(CategoryCreateViewModel model)
         {
             model.CategoryDO.ParentId = model.IsSubCategory ? model.CategoryDO.ParentId : null;
-            _categoryService.Create(model.CategoryDO);
-            return RedirectToAction("Index", "Category");
+            Result<string> result = _categoryService.Create(model.CategoryDO);
+            return Json(result);
         }
 
         public IActionResult Edit(int id)

@@ -15,16 +15,16 @@ Demo.Ingame.Result = {
         toastr.options = {
             "closeButton": true,
         }
-        if (resultType == RTG.FE.ResultEnum.INFORMATION) {
+        if (resultType == Demo.Ingame.ResultEnum.INFORMATION) {
             toastr["info"](languageMessage, message);
         }
-        if (resultType == RTG.FE.ResultEnum.SUCCESS) {
+        if (resultType == Demo.Ingame.ResultEnum.SUCCESS) {
             toastr["success"](languageMessage, "Başarılı!");
         }
-        if (resultType == RTG.FE.ResultEnum.WARNING) {
+        if (resultType == Demo.Ingame.ResultEnum.WARNING) {
             toastr["warning"](languageMessage, "Uyarı!");
         }
-        if (resultType == RTG.FE.ResultEnum.ERROR) {
+        if (resultType == Demo.Ingame.ResultEnum.ERROR) {
             toastr["error"](languageMessage, "Hata!");
         }
     }

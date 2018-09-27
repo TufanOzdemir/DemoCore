@@ -2,7 +2,7 @@
 
 Demo.Ingame.Category = {
     create:  function () {
-        Demo.Ingame.Loader.show();
+        //Demo.Ingame.Loader.show();
         var form = $("#form-category");
             $.ajax({
                 url: "/Category/Create",
@@ -12,14 +12,14 @@ Demo.Ingame.Category = {
                 cache: false,
                 success: function (result) {
                     if (result.isSuccess) {
-                        window.location.replace("/Category/Index/");
+                        Demo.Ingame.Result.show(result);
+                        setTimeout(function () { window.location.replace("/Category/Index/");}, 3000);
                     }
-                    Demo.Result.show(result);
-                    Demo.Loader.hide();
+                    //Demo.Loader.hide();
                 },
                 error: function (xhr, status, error) {
                     alert("Bir problem oluştu!");
-                    Demo.Loader.hide();
+                    //Demo.Loader.hide();
                 }
             });
     },
