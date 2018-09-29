@@ -36,9 +36,9 @@ namespace UI.Controllers
             return View(result.Data);
         }
 
-        [Route("[Controller]/{id:int}")]
+        [Route("[Controller]/{name}/{id:int}")]
         [Authorize(Roles ="Admin,Moderator")]
-        public IActionResult Details(int id)
+        public IActionResult Details(string name, int id)
         {
             Result<ProductDO> result = _productService.GetByID(id);
             return View(result.Data);
