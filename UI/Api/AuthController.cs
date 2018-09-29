@@ -46,7 +46,7 @@ namespace UI.Api
                 var signInResult = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (signInResult.Succeeded)
                 {
-                    result = new Result<string>(GenerateToken(model.Email));
+                    result = new Result<string>(await GenerateToken(model.Email));
                 }
                 else
                 {
@@ -90,14 +90,20 @@ namespace UI.Api
             return Json(result);
         }
 
-        private string GenerateToken(string userName)
+        private async Task<string> GenerateToken(string userName)
         {
+            var user = await _userManager.FindByEmailAsync(userName);
+            var roles = await _userManager.GetRolesAsync(user);
             var someClaims = new Claim[] { new Claim(JwtRegisteredClaimNames.Sub, userName), new Claim(JwtRegisteredClaimNames.Email, userName) };
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(someClaims, "Token");
+            // Adding roles code
+            // Roles property is string collection but you can modify Select code if it it's not
+            claimsIdentity.AddClaims(roles.Select(role => new Claim(ClaimTypes.Role, role)));
             SecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("denemedenemedenemedeneme"));
             var token = new JwtSecurityToken(
                 audience: "mysite.com",
                 issuer: "mysite.com",
-                claims: someClaims,
+                claims: claimsIdentity.Claims,
                 expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
             );

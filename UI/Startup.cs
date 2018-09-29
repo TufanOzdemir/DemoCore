@@ -16,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Service.IdentityServices;
 using Services.IdentityServices;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
 using UI.Helpers;
@@ -42,6 +43,7 @@ namespace UI
                 .AddEntityFrameworkStores<IdentityDataContext>()
                 .AddDefaultTokenProviders();
 
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             services.AddAuthentication(options =>{})
             .AddJwtBearer(options =>
             {
@@ -68,7 +70,7 @@ namespace UI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {

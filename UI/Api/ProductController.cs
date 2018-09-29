@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Models;
+using Interface.Result;
+using Interface.ServiceInterfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,10 +17,18 @@ namespace UI.Api
     [Route("api/Product")]
     public class ProductController : Controller
     {
-        [Route("deneme")]
-        public IActionResult deneme()
+        IProductService _productService;
+        public ProductController(IProductService productService)
         {
-            return Ok("denedim");
+            _productService = productService;
+        }
+
+        [Route("{id:int}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetByID(int id)
+        {
+            Result<ProductDO> result = _productService.GetByID(id);
+            return Json(result);
         }
     }
 }
