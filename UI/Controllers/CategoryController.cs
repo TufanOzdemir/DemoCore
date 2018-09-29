@@ -18,7 +18,6 @@ namespace UI.Controllers
     public class CategoryController : Controller
     {
         ICategoryService _categoryService;
-
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
@@ -29,12 +28,55 @@ namespace UI.Controllers
             return View();
         }
 
+        public IActionResult Details(int id)
+        {
+            return RedirectToAction("Index", "Product", new { id });
+        }
+
+        public IActionResult CategoryTree()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> CategoryTreePage()
+        {
+            Result<string> result = new Result<string>("");
+            result.Html = await PartialView("_CategoryTree", result).ToString(ControllerContext);
+            return Json(result);
+        }
+
+        public IActionResult CategoryTreeAsync()
+        {
+            Result<List<CategoryDO>> result = _categoryService.GetCategoryTree();
+            result.Html = $"<pre> {CategoryTreeInitializer(result.Data, 0)} </pre>";
+            result.Data = null;
+            return Json(result);
+        }
+
+        private string CategoryTreeInitializer(List<CategoryDO> list, int spaceCount)
+        {
+            string categoryString = "";
+            int count = ++spaceCount;
+            foreach (var item in list)
+            {
+                for (int i = 0; i < spaceCount; i++)
+                {
+                    categoryString += "       ";
+                }
+                categoryString += $"<a href=\"Details/{item.Id }\">{item.Name}</a>";
+                categoryString += "<br/>";
+                categoryString += CategoryTreeInitializer(item.SubCategoryList, count);
+            }
+            return categoryString;
+        }
+
         public async Task<IActionResult> List()
         {
             Result<List<CategoryDO>> result = _categoryService.GetAllWithoutSubCategories();
             result.Html = await PartialView("_List", result).ToString(ControllerContext);
             return Json(result);
         }
+
         public IActionResult Create()
         {
             return View();

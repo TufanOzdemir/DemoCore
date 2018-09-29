@@ -105,5 +105,39 @@ Demo.Ingame.Category = {
         } else {
             text.style.display = "none";
         }
+    },
+    categoryTree: function () {
+        Demo.Ingame.Loader.show();
+        $.ajax({
+            type: 'GET',
+            url: "/Category/CategoryTreePage",
+            data: null,
+            cache: false,
+            success: function (result) {
+                $("#categoryTree").html(result.html);
+                Demo.Ingame.Loader.hide();
+            },
+            error: function (xhr, status, error) {
+                alert("Bir problem oluştu!");
+                Demo.Ingame.Loader.hide();
+            }
+        });
+    },
+    categoryTreeList: function () {
+        Demo.Ingame.Loader.show();
+        $.ajax({
+            type: 'GET',
+            url: "/Category/CategoryTreeAsync",
+            data: null,
+            cache: false,
+            success: function (result) {
+                $("#categoryTreeList").html(result.html);
+                Demo.Ingame.Loader.hide();
+            },
+            error: function (xhr, status, error) {
+                alert("Bir problem oluştu!");
+                Demo.Ingame.Loader.hide();
+            }
+        });
     }
 };

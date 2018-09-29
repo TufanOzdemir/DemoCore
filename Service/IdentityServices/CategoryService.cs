@@ -41,15 +41,35 @@ namespace Service.IdentityServices
             return result;
         }
 
-        public Result<List<CategoryDO>> GetAllWithoutSubCategories()
+        public Result<List<CategoryDO>> GetCategoryTree()
         {
             Result<List<CategoryDO>> result;
             try
             {
                 List<Category> category = _dataContext.Category
-                    .AsNoTracking()
+                    .Include(i => i.InverseParent)
+                    .Include(i => i.Parent)
+                    .Include(i => i.Product)
                     .ToList();
 
+                List<Category> categories = category.Where(i => i.ParentId == null).ToList();
+
+                List<CategoryDO> categoryDO = Mapper.Map<List<Category>, List<CategoryDO>>(categories);
+                result = new Result<List<CategoryDO>>(categoryDO);
+            }
+            catch (Exception ex)
+            {
+                result = new Result<List<CategoryDO>>(false, ResultTypeEnum.Error, ex.ToString());
+            }
+            return result;
+        }
+
+        public Result<List<CategoryDO>> GetAllWithoutSubCategories()
+        {
+            Result<List<CategoryDO>> result;
+            try
+            {
+                List<Category> category = _dataContext.Category.AsNoTracking().ToList();
                 List<CategoryDO> categoryDO = Mapper.Map<List<Category>, List<CategoryDO>>(category);
                 result = new Result<List<CategoryDO>>(categoryDO);
             }

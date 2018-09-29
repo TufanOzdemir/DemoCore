@@ -1,0 +1,16 @@
+﻿@using Domain.Models
+@model List<CategoryDO>
+@{
+    ViewData["Title"] = "CategoryTree";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Demo.Ingame.Category.categoryTree();
+        });
+    </script>
+}
+<div id="categoryTree"></div>
