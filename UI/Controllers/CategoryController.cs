@@ -14,7 +14,7 @@ using UI.ViewModels;
 
 namespace UI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class CategoryController : Controller
     {
         ICategoryService _categoryService;
@@ -27,12 +27,13 @@ namespace UI.Controllers
         {
             return View();
         }
-
+        
         public IActionResult Details(int id)
         {
             return RedirectToAction("Index", "Product", new { id });
         }
 
+        [Route("[Controller]/KategoriAgaci")]
         public IActionResult CategoryTree()
         {
             return View();
@@ -69,7 +70,7 @@ namespace UI.Controllers
             }
             return categoryString;
         }
-
+        
         public async Task<IActionResult> List()
         {
             Result<List<CategoryDO>> result = _categoryService.GetAllWithoutSubCategories();
@@ -77,6 +78,7 @@ namespace UI.Controllers
             return Json(result);
         }
 
+        [Route("Kategori/Ekle")]
         public IActionResult Create()
         {
             return View();

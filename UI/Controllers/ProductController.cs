@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Domain.Models;
 using Interface.Result;
 using Interface.ServiceInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using UI.ViewModels;
 
 namespace UI.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         IProductService _productService;
@@ -30,10 +32,12 @@ namespace UI.Controllers
         public IActionResult Index(int id = 0)
         {
             Result<List<ProductDO>> result = id == 0 ? _productService.GetAll() : _productService.GetProductListByCategoryID(id);
+            result.Data.Reverse();
             return View(result.Data);
         }
 
         [Route("[Controller]/{id:int}")]
+        [Authorize(Roles ="Admin,Moderator")]
         public IActionResult Details(int id)
         {
             Result<ProductDO> result = _productService.GetByID(id);
