@@ -35,7 +35,7 @@ namespace UI.Api
             _signInManager = signInManager;
             _emailSender = emailSender;
         }
-        
+
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody]LoginViewModel model)
@@ -51,6 +51,35 @@ namespace UI.Api
                 else
                 {
                     result = new Result<string>(false, ResultTypeEnum.Error, "Girdiğiniz bilgiler yanlış!");
+                }
+            }
+            else
+            {
+                result = new Result<string>(false, ResultTypeEnum.Error, "Lütfen tüm bilgileri eksiksiz girdiğinizden emin olunuz!");
+            }
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        [Route("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromBody]ForgotPasswordViewModel model)
+        {
+            Result<string> result;
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    result = new Result<string>(false, ResultTypeEnum.Information, "Mail adresiniz doğrulanmamış!");
+                }
+                else
+                {
+                    var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
+                    await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+                       $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                    result = new Result<string>("Mail adresinize parola sıfırlama linki gönderilmiştir!");
                 }
             }
             else

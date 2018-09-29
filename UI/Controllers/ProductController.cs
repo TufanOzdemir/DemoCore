@@ -33,12 +33,14 @@ namespace UI.Controllers
             return View(result.Data);
         }
 
+        [Route("[Controller]/{id:int}")]
         public IActionResult Details(int id)
         {
             Result<ProductDO> result = _productService.GetByID(id);
             return View(result.Data);
         }
 
+        [Route("[Controller]/UrunEkle")]
         public IActionResult Create()
         {
             ProductCreateViewModel productCreateViewModel = new ProductCreateViewModel();
@@ -56,7 +58,7 @@ namespace UI.Controllers
             _productService.Create(model.ProductDO);
             return RedirectToAction("Index", "Product");
         }
-
+        
         public IActionResult Edit(int id)
         {
             ProductCreateViewModel productCreateViewModel = new ProductCreateViewModel();

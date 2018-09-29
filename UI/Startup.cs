@@ -18,6 +18,7 @@ using Services.IdentityServices;
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using UI.Helpers;
 
 namespace UI
 {
@@ -40,48 +41,6 @@ namespace UI
             services.AddIdentity<IdentityData.Identity.ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityDataContext>()
                 .AddDefaultTokenProviders();
-
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //}).AddJwtBearer(options =>
-            //{
-            //    options.SaveToken = true;
-            //    options.RequireHttpsMetadata = false;
-            //    options.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateAudience = true,
-            //        ValidAudience = "https://localhost:44323/api",
-            //        ValidateIssuer = true,
-            //        ValidIssuer = "https://localhost:44323/api",
-            //        ValidateLifetime = true,
-            //        ValidateIssuerSigningKey = true,
-            //        IssuerSigningKey = new SymmetricSecurityKey(
-            //            Encoding.UTF8.GetBytes("denemedenemedenemedeneme"))
-            //    };
-            //    options.Events = new JwtBearerEvents
-            //    {
-            //        OnTokenValidated = ctx =>
-            //        {
-            //            return Task.CompletedTask;
-            //        },
-            //        OnAuthenticationFailed = ctx =>
-            //        {
-            //            Console.WriteLine("Exception:{0}", ctx.Exception.Message);
-            //            return Task.CompletedTask;
-            //        }
-            //    };
-            //});
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("Over18", policy =>
-                {
-                    policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
-                    policy.RequireAuthenticatedUser();
-                });
-            });
 
             services.AddAuthentication(options =>{})
             .AddJwtBearer(options =>
@@ -109,7 +68,7 @@ namespace UI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
