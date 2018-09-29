@@ -3,6 +3,8 @@ using Data.Models;
 using IdentityData.Identity;
 using Interface.Initializer;
 using Interface.ServiceInterfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
@@ -10,8 +12,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Service.IdentityServices;
 using Services.IdentityServices;
+using System;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace UI
 {
@@ -35,7 +41,64 @@ namespace UI
                 .AddEntityFrameworkStores<IdentityDataContext>()
                 .AddDefaultTokenProviders();
 
-            // Add application services.
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //}).AddJwtBearer(options =>
+            //{
+            //    options.SaveToken = true;
+            //    options.RequireHttpsMetadata = false;
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateAudience = true,
+            //        ValidAudience = "https://localhost:44323/api",
+            //        ValidateIssuer = true,
+            //        ValidIssuer = "https://localhost:44323/api",
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(
+            //            Encoding.UTF8.GetBytes("denemedenemedenemedeneme"))
+            //    };
+            //    options.Events = new JwtBearerEvents
+            //    {
+            //        OnTokenValidated = ctx =>
+            //        {
+            //            return Task.CompletedTask;
+            //        },
+            //        OnAuthenticationFailed = ctx =>
+            //        {
+            //            Console.WriteLine("Exception:{0}", ctx.Exception.Message);
+            //            return Task.CompletedTask;
+            //        }
+            //    };
+            //});
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Over18", policy =>
+                {
+                    policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+                    policy.RequireAuthenticatedUser();
+                });
+            });
+
+            services.AddAuthentication(options =>{})
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = true,
+                    ValidAudience = "mysite.com",
+                    ValidateIssuer = true,
+                    ValidIssuer = "mysite.com",
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes("denemedenemedenemedeneme"))
+                }; 
+            });
+
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
@@ -62,7 +125,7 @@ namespace UI
             app.UseStaticFiles();
 
             app.UseAuthentication();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

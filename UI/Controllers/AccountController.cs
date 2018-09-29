@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using UI.Models.AccountViewModels;
 using UI.Services;
+using System.Linq;
 
 namespace UI.Controllers
 {
@@ -57,8 +58,6 @@ namespace UI.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
@@ -361,7 +360,6 @@ namespace UI.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToAction(nameof(ForgotPasswordConfirmation));
                 }
 

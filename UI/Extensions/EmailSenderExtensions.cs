@@ -1,4 +1,6 @@
 using Interface.ServiceInterfaces;
+using System.Net;
+using System.Net.Mail;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
