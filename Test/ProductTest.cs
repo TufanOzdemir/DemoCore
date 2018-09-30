@@ -13,7 +13,6 @@ namespace Test
     public class ProductTest
     {
         ProductService productService;
-
         [TestInitialize()]
         public void Initialize()
         {

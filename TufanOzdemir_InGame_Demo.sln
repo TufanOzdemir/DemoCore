@@ -15,11 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{70AB1CEE-D800-4327-9934-C5EF40E97822}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Extensions\Extensions.csproj", "{300ED23F-DC89-47CD-8B0A-61EA84E3B1E1}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccessLayer", "DataAccessLayer", "{92017786-BDC3-4779-82F4-FF06A4BA88C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityData", "IdentityData\IdentityData.csproj", "{FA69D2D6-C84E-4F88-AFAC-251C10715391}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityData", "IdentityData\IdentityData.csproj", "{FA69D2D6-C84E-4F88-AFAC-251C10715391}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +49,6 @@ Global
 		{70AB1CEE-D800-4327-9934-C5EF40E97822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70AB1CEE-D800-4327-9934-C5EF40E97822}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70AB1CEE-D800-4327-9934-C5EF40E97822}.Release|Any CPU.Build.0 = Release|Any CPU
-		{300ED23F-DC89-47CD-8B0A-61EA84E3B1E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{300ED23F-DC89-47CD-8B0A-61EA84E3B1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{300ED23F-DC89-47CD-8B0A-61EA84E3B1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{300ED23F-DC89-47CD-8B0A-61EA84E3B1E1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA69D2D6-C84E-4F88-AFAC-251C10715391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA69D2D6-C84E-4F88-AFAC-251C10715391}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA69D2D6-C84E-4F88-AFAC-251C10715391}.Release|Any CPU.ActiveCfg = Release|Any CPU

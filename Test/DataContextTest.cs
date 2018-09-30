@@ -11,16 +11,26 @@ namespace Test
     [TestClass]
     public class DataContextTest
     {
+        DataContext dataContext;
         [TestInitialize()]
         public void Initialize()
         {
+            dataContext = new DataContext(new DbContextOptions<DataContext>());
             MapperInitializer.MapperConfiguration();
+        }
+
+
+        [TestMethod]
+        public void DeleteAllProduct()
+        {
+            //Test methodu asenkron olmadýðý için bu þekilde procedure çaðýrdým kod patlýyor ama procedure çalýþýyor.
+            //Bu procedure tüm ürünleri silmek için kullanýlmaktadýr.
+            dataContext.Product.FromSql("DeleteDatabaseTableItems").ToArray();
         }
 
         [TestMethod]
         public void CategoryTest()
         {
-            DataContext dataContext = new DataContext(new DbContextOptions<DataContext>());
             var k = dataContext.Category.Include(i=>i.Product).Include(i => i.Parent).Include(i=>i.InverseParent).First();
             CategoryDO categoryDO = Mapper.Map<Category, CategoryDO>(k);
         }
